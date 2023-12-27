@@ -1,0 +1,57 @@
+1step :configure the dispatched servelet
+web.xml
+-----------------------
+
+<web-app>
+
+    <servlet>
+        <servlet-name>example</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>example</servlet-name>
+        <url-pattern>/example/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+
+1.give the servletname as u want
+2.give the servlet class name org.springframework.web.servlet.DispatcherServlet
+                                            if u want fully qualified name plz ctrl+shift+t 
+3.give the same name in servlet mapping in servlet name
+4.use url patteren u want
+
+2nd step:creating Spring config file
+1. create a xml file in same name as servlet name
+ex: serveletname-servlet.xml
+add bean file 
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    https://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context     
+    http://www.springframework.org/schema/context/spring-context.xsd"
+
+    xmlns:p="http://springframework.org/schema/p">
+<!-- Enable annotations -->
+<context:component-scan base-package="mvc.controller"></context:component-scan>
+    <!-- View Resolver bean -->
+    <bean
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+        name="viewResolver">
+        <!-- Inject two properties -->
+        <!-- Location for pages is given to prefix -->
+        <property name="prefix" value="/WEB-INF/views/" />
+        <!-- ending of page is .jsp -->
+        <property name="suffix" value=".jsp" />
+        <!-- Example name /WEB-INF/views/hello.jsp (here the name hello will be 
+            given by controller) -->
+    </bean>
+
+</beans>
+
+create a controller and run;
